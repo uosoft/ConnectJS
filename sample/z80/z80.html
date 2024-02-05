@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Connect JS Sample 3</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script type='text/javascript' src='Z80/Z80.js'></script>
+	<script type='text/javascript' src='connectjs.js'></script>
+	<script type='text/javascript' src='Z80Module.js'></script>
+	<script type='text/javascript' src='Memory64KModule.js'></script>
+	<script type='text/javascript' src='OscillatorModule.js'></script>
+
+	<script type="text/javascript">
+	
+	// コネクトマネージャ
+	var cm = new ConnectManager();
+	// メモリモジュール
+	var mem = new Memory64KModule();
+	// Z80モジュール
+	var cpu = new Z80Module();
+	// オシレータモジュール
+	var osc = new OscillatorModule();
+	
+	function start() {
+		
+		
+		// モジュールのポートを接続する
+		// (モジュール1, モジュール1のポート, モジュール2, モジュール2のポート)
+		cm.connect(cpu, "mem_read", mem, "mem_read");
+		cm.connect(cpu, "mem_write", mem, "mem_write");
+		cm.connect(cpu, "mem_value", mem, "mem_value");
+		cm.connect(cpu, "clock", osc, "clockout");
+		
+		// プログラム
+		
+		//LD A,1 ; A=1
+		mem.port.mem_value = parseInt("3E", 16);
+		mem.port.mem_write = 0;
+		mem.port.mem_value = parseInt("01", 16);
+		mem.port.mem_write = 1;
+		
+		//ADD A,3 ; A=A+3
+		mem.port.mem_value = parseInt("C6", 16);
+		mem.port.mem_write = 2;
+		mem.port.mem_value = parseInt("03", 16);
+		mem.port.mem_write = 3;
+		
+		cpu.reset();
+		/*
+		cpu.port.clock = 1; cpu.port.clock = 0;  //クロック
+		cpu.port.clock = 1; cpu.port.clock = 0;  //クロック
+		cpu.port.clock = 1; cpu.port.clock = 0;  //クロック
+		cpu.port.clock = 1; cpu.port.clock = 0;  //クロック
+		*/
+		osc.port.enable = true;
+		setTimeout(function() {
+			osc.port.enable = false;
+			document.getElementById("outtext").innerHTML = JSON.stringify(cpu.z80.getState());
+		}, 1000);
+		
+	}
+	
+	</script>
+
+</head>
+<body onload="start();">
+LD  A,1 ; A=1<br />
+ADD A,3 ; A=A+3<br />
+を実行<br />
+<br />
+Aレジスタが4なら成功<br />
+<div id="outtext"></div>
+</body>
+</html>

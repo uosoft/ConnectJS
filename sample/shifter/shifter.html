@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Connect JS TEST 2</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script type='text/javascript' src='../connectjs.js'></script>
+	<script type='text/javascript' src='ShiftModule.js'></script>
+	<script type='text/javascript' src='TimerModule..js'></script>
+	<script type='text/javascript' src='LEDModule.js'></script>
+
+	<script type="text/javascript">
+	
+	function start() {
+		
+		// コネクトマネージャ
+		var cm = new ConnectManager();
+		// モジュール4bitShiftModule (シフトレジスタ的なもの)
+		var shift = new ShiftModule();
+		// モジュールTimerModule (オシレータ的なもの)
+		var timer = new TimerModule();
+		// モジュールLEDModule (LED的なもの)
+		var led1 = new LEDModule("led1");
+		var led2 = new LEDModule("led2");
+		var led3 = new LEDModule("led3");
+		var led4 = new LEDModule("led4");
+		
+		// モジュールのポートを接続する
+		// (モジュール1, モジュール1のポート, モジュール2, モジュール2のポート)
+		cm.connect(shift, "ck", timer, "clockout");
+		cm.connect(shift, "qa", led1, "led");
+		cm.connect(shift, "qb", led2, "led");
+		cm.connect(shift, "qc", led3, "led");
+		cm.connect(shift, "qd", led4, "led");
+		cm.connect(shift, "qd", shift, "si");
+		
+		shift.port.si = 1;
+		shift.port.ck = true;
+		shift.port.ck = false;
+		timer.port.interval = 1000;
+	}
+	
+	</script>
+
+</head>
+<body onload="start();">
+<table border=1>
+	<tr>
+		<td id="led1">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td id="led2">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td id="led3">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td id="led4">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	</tr>
+</table>
+<hr />
+回路イメージ<br />
+<img src="shifter.png" />
+</body>
+</html>

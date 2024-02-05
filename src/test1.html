@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Connect JS TEST 1</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script type='text/javascript' src='connectjs.js'></script>
+
+	<script type="text/javascript">
+	
+	// <inout type="text">タグに入力したものを出力するモジュール
+	class inputText extends ConnectModule {
+		constructor(id) {
+			super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
+			this.elm = document.getElementById(id);
+			if (id) {
+				var self = this;
+				this.elm.addEventListener('input', function() {
+					self.port.text = self.elm.value;
+				});
+			}
+		}
+		// セットアップ
+		setup() {
+			this.addPort("text");  //ポート text を追加 (ポート名, IN許可, OUT許可)
+		}
+		
+	}
+	
+	// <div>タグに入力したものを表示するモジュール
+	class outputText extends ConnectModule {
+		//コンストラクタ
+		constructor(id) {
+			super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
+			this.elm = document.getElementById(id);
+		}
+		// セットアップ
+		setup() {
+			this.addPort("text");  //ポート text を追加 (ポート名, IN許可, OUT許可)
+		}
+		// ポート text に値がセットされたときに動作する setter
+		set_text(value) {
+			this.elm.innerText = value;
+		}
+	}
+	
+	function start() {
+		
+		// コネクトマネージャ
+		var cm = new ConnectManager();
+		// モジュール1 <inout type="text">タグに入力したものを出力するモジュール
+		var intext = new inputText("intext");
+		// モジュール2 <div>タグに入力したものを表示するモジュール
+		var outtext = new outputText("outtext");
+		
+		// モジュールのポートを接続する
+		// (モジュール1, モジュール1のポート, モジュール2, モジュール2のポート)
+		cm.connect(intext, "text", outtext, "text");
+		
+		// 試しに値を直接入れてみる
+		outtext.port.text = "aaaaa";
+	}
+	
+	</script>
+
+</head>
+<body onload="start();">
+<input type="text" id="intext"/>
+<div id="outtext"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Connect JS Sample 1</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script type='text/javascript' src='../connectjs.js'></script>
+	<script type='text/javascript' src='OutputTextModule.js'></script>
+	<script type='text/javascript' src='CounterModule.js'></script>
+
+	<script type="text/javascript">
+	
+	// コネクトマネージャ
+	var cm = new ConnectManager();
+	// カウンターモジュール (カウンター的なもの)
+	var counter = new CounterModule();
+	// 出力モジュール
+	var outtext = new OutputTextModule();
+	var outtext2 = new OutputTextModule();
+	
+	function start() {
+		
+		outtext.setElement("outtext");
+		outtext2.setElement("outtext2");
+		
+		// モジュールのポートを接続する
+		// (モジュール1, モジュール1のポート, モジュール2, モジュール2のポート)
+		cm.connect(counter, "count", outtext, "text");
+		cm.connect(outtext, "text", outtext2, "text");
+		
+		
+		counter.port.count = 0;
+	}
+	
+	</script>
+
+</head>
+<body onload="start();">
+<input type="button" id="ボタン" value="カウント" onclick="counter.port.countup=true;counter.port.countup=false;"/>
+<div id="outtext"></div>
+<div id="outtext2"></div>
+<hr />
+回路イメージ<br />
+<img src="counter.png" />
+</body>
+</html>
