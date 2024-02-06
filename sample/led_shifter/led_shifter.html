@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>Connect JS TEST 2</title> 
+	<title>Connect JS Sample  -- LED Shifter --</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<script type='text/javascript' src='../connectjs.js'></script>
@@ -34,6 +34,7 @@
 		cm.connect(shift, "qd", led4, "led");
 		cm.connect(shift, "qd", shift, "si");
 		
+		// 各ポートの初期化処理
 		shift.port.si = 1;
 		shift.port.ck = true;
 		shift.port.ck = false;
@@ -54,6 +55,6 @@
 </table>
 <hr />
 回路イメージ<br />
-<img src="shifter.png" />
+<img src="led_shifter.png" />
 </body>
 </html>

@@ -4,6 +4,9 @@ class Z80Module extends ConnectModule {
 	//コンストラクタ
 	constructor() {
 		super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
+	}
+	// セットアップ
+	setup() {
 		this.enableClock = true;
 		var self = this;
 		this.z80 = new Z80( {
@@ -27,9 +30,6 @@ class Z80Module extends ConnectModule {
 				self.port.io_write = address
 			},
 		});
-	}
-	// セットアップ
-	setup() {
 		this.addPort("mem_read", false, true);   //ポート mem_read を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("mem_write", false, true);  //ポート mem_write を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("mem_value", true, true);   //ポート mem_write を追加 (ポート名, IN許可, OUT許可)

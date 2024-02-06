@@ -1,11 +1,8 @@
 // bitShiftModule
 class ShiftModule extends ConnectModule {
-	constructor() {
-		super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
-		this.isCountup = false;
-	}
 	// セットアップ
 	setup() {
+		this.isCountup = false;
 		this.addPort("si", true, false);  //ポート si を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("ck", true, false);  //ポート clock を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("qa", false, true);  //ポート qa を追加 (ポート名, IN許可, OUT許可)

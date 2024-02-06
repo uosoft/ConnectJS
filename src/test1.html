@@ -10,55 +10,51 @@
 	
 	// <inout type="text">タグに入力したものを出力するモジュール
 	class inputText extends ConnectModule {
-		constructor(id) {
-			super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
-			this.elm = document.getElementById(id);
-			if (id) {
-				var self = this;
-				this.elm.addEventListener('input', function() {
-					self.port.text = self.elm.value;
-				});
-			}
-		}
 		// セットアップ
 		setup() {
-			this.addPort("text");  //ポート text を追加 (ポート名, IN許可, OUT許可)
+			// ポート text を追加 (ポート名, IN許可, OUT許可)
+			this.addPort("text");  
+			// IDが"intext"のテキストボックスの入力時にテキストボックスの値をポート"text"に入れる
+			this.elm = document.getElementById("intext");
+			var self = this;
+			this.elm.addEventListener('input', function() {
+				self.port.text = self.elm.value;
+			});
 		}
 		
 	}
 	
-	// <div>タグに入力したものを表示するモジュール
+	// <div id="outtext">タグへ表示するモジュール
 	class outputText extends ConnectModule {
-		//コンストラクタ
-		constructor(id) {
-			super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
-			this.elm = document.getElementById(id);
-		}
 		// セットアップ
 		setup() {
-			this.addPort("text");  //ポート text を追加 (ポート名, IN許可, OUT許可)
+			this.elm = document.getElementById("outtext");
+			// ポート text を追加 (ポート名, IN許可, OUT許可)
+			this.addPort("text");  
 		}
 		// ポート text に値がセットされたときに動作する setter
 		set_text(value) {
+			// セットされた値を<div id="outtext">タグに表示する
 			this.elm.innerText = value;
 		}
 	}
 	
+	// bodyのonloadの処理
 	function start() {
 		
 		// コネクトマネージャ
 		var cm = new ConnectManager();
-		// モジュール1 <inout type="text">タグに入力したものを出力するモジュール
-		var intext = new inputText("intext");
-		// モジュール2 <div>タグに入力したものを表示するモジュール
-		var outtext = new outputText("outtext");
+		// <inout type="text">タグに入力したものを出力するモジュール
+		var intext = new inputText();
+		// <div id="outtext">タグへ表示するモジュール
+		var outtext = new outputText();
 		
 		// モジュールのポートを接続する
 		// (モジュール1, モジュール1のポート, モジュール2, モジュール2のポート)
 		cm.connect(intext, "text", outtext, "text");
 		
 		// 試しに値を直接入れてみる
-		outtext.port.text = "aaaaa";
+		outtext.port.text = "ここに入力した値が表示される";
 	}
 	
 	</script>

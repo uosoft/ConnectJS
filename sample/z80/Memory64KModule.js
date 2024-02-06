@@ -1,13 +1,9 @@
 
 // Memory64KModule
 class Memory64KModule extends ConnectModule {
-	//コンストラクタ
-	constructor() {
-		super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
-		this.mem = Array(65536).fill(0);
-	}
 	// セットアップ
 	setup() {
+		this.mem = Array(65536).fill(0);
 		this.addPort("mem_read", true, false);   //ポート mem_read を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("mem_write", true, false);  //ポート mem_write を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("mem_value", true, true);   //ポート mem_write を追加 (ポート名, IN許可, OUT許可)

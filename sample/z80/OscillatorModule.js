@@ -1,12 +1,8 @@
 // TimerModule
 class OscillatorModule extends ConnectModule {
-	//コンストラクタ
-	constructor(id) {
-		super();  //継承先でコンストラクタを定義する場合は親のコンストラクタを初めに呼ぶ
-		this.t = null;
-	}
 	// セットアップ
 	setup() {
+		this.t = null;
 		this.addPort("clockout", false, true);  //ポート clockout を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("enable", true, false);    //ポート enable を追加 (ポート名, IN許可, OUT許可)
 		this.port.enable = false;
