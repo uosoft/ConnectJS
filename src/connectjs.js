@@ -1,3 +1,18 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file connectjs.js
+///
+/// @brief This is a JavaScript library that allows you to create programs to connect parts.
+///
+/// @author Molly Howell
+///
+/// @remarks
+///  This is a JavaScript library that allows you to create programs to connect parts.
+///
+/// @copyright (c) UO Soft
+///  This code is released under the MIT license,
+///  a copy of which is available in the associated README.md file,
+///  or at http://opensource.org/licenses/MIT
+///////////////////////////////////////////////////////////////////////////////
 class ConnectManager {
 	static _no = 0;
 	

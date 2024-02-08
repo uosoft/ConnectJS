@@ -6,7 +6,7 @@ class TimerModule extends ConnectModule {
 		this.addPort("clockout", false, true);  //ポート clockout を追加 (ポート名, IN許可, OUT許可)
 		this.addPort("interval", true, false);  //ポート interval を追加 (ポート名, IN許可, OUT許可)
 	}
-	// ポート text に値がセットされたときに動作する setter
+	// ポート interval に値がセットされたときに動作する setter
 	set_interval(value) {
 		if (this.t != null) {
 			clearTimeout(this.t);
