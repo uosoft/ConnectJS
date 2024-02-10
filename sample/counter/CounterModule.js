@@ -1,4 +1,5 @@
 // <div>タグに入力したものを表示するモジュール
+// モジュールはConnectModuleクラスを継承する
 class CounterModule extends ConnectModule {
 	// セットアップ
 	setup() {

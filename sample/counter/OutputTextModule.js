@@ -1,4 +1,5 @@
 // タグに入力したものを表示するモジュール
+// モジュールはConnectModuleクラスを継承する
 class OutputTextModule extends ConnectModule {
 	// セットアップ
 	setup() {

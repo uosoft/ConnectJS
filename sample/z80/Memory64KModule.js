@@ -1,5 +1,6 @@
 
 // Memory64KModule
+// モジュールはConnectModuleクラスを継承する
 class Memory64KModule extends ConnectModule {
 	// セットアップ
 	setup() {

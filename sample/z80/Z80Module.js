@@ -1,5 +1,6 @@
 
 // Z80Module
+// モジュールはConnectModuleクラスを継承する
 class Z80Module extends ConnectModule {
 	//コンストラクタ
 	constructor() {

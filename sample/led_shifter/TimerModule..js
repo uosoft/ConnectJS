@@ -1,4 +1,5 @@
 // TimerModule
+// モジュールはConnectModuleクラスを継承する
 class TimerModule extends ConnectModule {
 	// セットアップ
 	setup() {

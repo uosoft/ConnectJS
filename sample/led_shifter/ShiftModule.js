@@ -1,4 +1,5 @@
 // bitShiftModule
+// モジュールはConnectModuleクラスを継承する
 class ShiftModule extends ConnectModule {
 	// セットアップ
 	setup() {

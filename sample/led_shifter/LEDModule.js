@@ -1,4 +1,5 @@
-// LEDModuke
+// LEDModule
+// モジュールはConnectModuleクラスを継承する
 class LEDModule extends ConnectModule {
 	//コンストラクタ
 	constructor(led) {
